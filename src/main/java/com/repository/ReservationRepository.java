@@ -1,0 +1,58 @@
+package com.repository;
+
+import java.math.BigDecimal;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.entity.Reservation;
+import com.entity.ReservationStatus;
+
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+
+    Page<Reservation> findByUserId(
+            Long userId,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByStatus(
+            ReservationStatus status,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByPriceGreaterThanEqual(
+            BigDecimal minPrice,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByPriceLessThanEqual(
+            BigDecimal maxPrice,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByStatusAndPriceGreaterThanEqual(
+            ReservationStatus status,
+            BigDecimal minPrice,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByStatusAndPriceLessThanEqual(
+            ReservationStatus status,
+            BigDecimal maxPrice,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByPriceBetween(
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            Pageable pageable
+    );
+
+    Page<Reservation> findByStatusAndPriceBetween(
+            ReservationStatus status,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            Pageable pageable
+    );
+}
